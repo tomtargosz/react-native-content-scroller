@@ -15,7 +15,7 @@
     "scroller",
     "marquee"
   ],
-  "author": "tomtargosz",
+  "author": "Tom Targosz <me@tomtargosz.dev>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/tomtargosz/react-native-content-scroller/issues"
@@ -23,6 +23,7 @@
   "homepage": "https://github.com/tomtargosz/react-native-content-scroller#readme",
   "dependencies": {
     "immutability-helper": "^3.1.1",
+    "react": "^18.1.0",
     "react-native": "^0.68.2",
     "react-native-reanimated": "^2.8.0"
   }
