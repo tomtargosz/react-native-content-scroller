@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "A component that automatically scrolls through content indefinitely.",
   "main": "src/index.ts",
-  "files": [
-    "src"
-  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,8 +23,14 @@
   "homepage": "https://github.com/tomtargosz/react-native-content-scroller#readme",
   "dependencies": {
     "immutability-helper": "^3.1.1",
-    "react": "^18.1.0",
-    "react-native": "^0.68.2",
-    "react-native-reanimated": "^2.8.0"
+    "react-native-reanimated": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.12",
+    "@types/react-native": "^0.67.8"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-native": "^0.68.2"
   }
 }

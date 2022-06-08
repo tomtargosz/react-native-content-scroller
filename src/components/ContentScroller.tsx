@@ -1,5 +1,3 @@
-import * as React from "react";
-import { Dimensions } from "react-native";
 import Animated, {
   runOnJS,
   useAnimatedStyle,
@@ -7,6 +5,8 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
+import * as React from "react";
+import { Dimensions } from "react-native";
 import update from "immutability-helper";
 
 type Props = {
