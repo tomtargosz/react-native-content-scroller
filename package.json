@@ -1,0 +1,24 @@
+{
+  "name": "react-native-content-scroller",
+  "version": "1.0.0",
+  "description": "A component that automatically scrolls through content indefinitely.",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomtargosz/react-native-content-scroller.git"
+  },
+  "keywords": [
+    "loader",
+    "scroller",
+    "marquee"
+  ],
+  "author": "tomtargosz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tomtargosz/react-native-content-scroller/issues"
+  },
+  "homepage": "https://github.com/tomtargosz/react-native-content-scroller#readme"
+}
