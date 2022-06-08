@@ -20,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/tomtargosz/react-native-content-scroller/issues"
   },
-  "homepage": "https://github.com/tomtargosz/react-native-content-scroller#readme"
+  "homepage": "https://github.com/tomtargosz/react-native-content-scroller#readme",
+  "dependencies": {
+    "immutability-helper": "^3.1.1",
+    "react-native": "^0.68.2",
+    "react-native-reanimated": "^2.8.0"
+  }
 }
