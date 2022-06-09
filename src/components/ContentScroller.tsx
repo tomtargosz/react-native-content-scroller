@@ -77,7 +77,7 @@ export function ContentScroller(props: Props) {
     const interval = setInterval(() => {
       offset.value = withTiming(
         offset.value - messageHeights[currentMessageIndex],
-        { duration: 500 },
+        { duration: 750 },
         (finished) => {
           return runOnJS(increment)(finished);
         }
@@ -117,36 +117,47 @@ export function ContentScroller(props: Props) {
           overflow: "hidden",
         }}
       >
-        {messages.map((message, i) => (
-          <Animated.View
-            key={i}
-            style={[
-              {
-                // The (i === 0 && currentMessageIndex !== i + 1) check ensures that we apply an
-                // opacity of 1 to the top message when the messages array is reset to avoid any flickering.
-                // The second portion of the check is there to not force that opacity once the messages begin
-                // to move- without it, we'll have two messages with an opacity of 1 at the same time.
-                opacity:
-                  (i === 0 && currentMessageIndex !== i + 1) ||
-                  currentMessageIndex === i
-                    ? 1
-                    : 0.25,
-              },
-              containerTransformStyle,
-            ]}
-            onLayout={(e) => {
-              !textHeight && setTextHeight(e.nativeEvent.layout.height);
-              !messageHeights[i] &&
-                setMessageHeights(
-                  update(messageHeights, {
-                    [i]: { $set: e.nativeEvent.layout.height },
-                  })
-                );
-            }}
-          >
-            {message}
-          </Animated.View>
-        ))}
+        {messages.map((message, i) => {
+          const isCurrentMessage = currentMessageIndex === i;
+          /*
+           This check prevents flickering in the event that currentMessageIndex and the messsages array aren't updated in sync.
+
+           Ideally, when resetting the messages array and setting currentMessageIndex to 0 the states of [i, currentMessageIndex] would be
+           [props.messages.length, props.messages.length]
+           [0, 0]
+           
+           On rare occasions when the updates don't happen at the same time we see the following states
+           [props.messages.length, props.messages.length]
+           [props.messages.length, 0]
+           [0, 0]
+          */
+          const isMessagesArrayRerendering =
+            i === props.messages.length && currentMessageIndex === 0;
+
+          return (
+            <Animated.View
+              key={i}
+              style={[
+                {
+                  opacity:
+                    isCurrentMessage || isMessagesArrayRerendering ? 1 : 0.25,
+                },
+                containerTransformStyle,
+              ]}
+              onLayout={(e) => {
+                !textHeight && setTextHeight(e.nativeEvent.layout.height);
+                !messageHeights[i] &&
+                  setMessageHeights(
+                    update(messageHeights, {
+                      [i]: { $set: e.nativeEvent.layout.height },
+                    })
+                  );
+              }}
+            >
+              {message}
+            </Animated.View>
+          );
+        })}
       </Animated.View>
     </Animated.View>
   );
