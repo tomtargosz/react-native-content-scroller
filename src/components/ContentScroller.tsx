@@ -3,18 +3,31 @@ import Animated, {
   useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
+  withSpring,
+  WithSpringConfig,
   withTiming,
+  WithTimingConfig,
 } from "react-native-reanimated";
 import * as React from "react";
 import { Dimensions } from "react-native";
 import update from "immutability-helper";
+
+type AnimationProps =
+  | {
+      rotationAnimation: "timing";
+      rotationConfig?: WithTimingConfig;
+    }
+  | {
+      rotationAnimation: "spring";
+      rotationConfig?: WithSpringConfig;
+    };
 
 type Props = {
   messages: Array<React.ReactElement>;
   numberOfMessagesToDisplay: number;
   rotationInterval: number;
   children?: React.ReactChild;
-};
+} & AnimationProps;
 
 // We initially set the view height to the height of the device to ensure we get an
 // accurate measurement of the views inside of the componet
@@ -75,13 +88,22 @@ export function ContentScroller(props: Props) {
 
   React.useEffect(() => {
     const interval = setInterval(() => {
-      offset.value = withTiming(
-        offset.value - messageHeights[currentMessageIndex],
-        { duration: 750 },
-        (finished) => {
-          return runOnJS(increment)(finished);
-        }
-      );
+      offset.value =
+        props.rotationAnimation === "spring"
+          ? withSpring(
+              offset.value - messageHeights[currentMessageIndex],
+              props.rotationConfig ?? { damping: 12 },
+              (finished) => {
+                return runOnJS(increment)(finished);
+              }
+            )
+          : withTiming(
+              offset.value - messageHeights[currentMessageIndex],
+              props.rotationConfig ?? { duration: 750 },
+              (finished) => {
+                return runOnJS(increment)(finished);
+              }
+            );
       setCurrentMessageIndex((curr) => curr + 1);
     }, props.rotationInterval);
     return () => {
