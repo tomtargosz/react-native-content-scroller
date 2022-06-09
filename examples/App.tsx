@@ -34,6 +34,10 @@ const App = () => {
         ]}
         numberOfMessagesToDisplay={3}
         rotationInterval={1500}
+        rotationAnimation="spring"
+        rotationConfig={{
+          damping: 12,
+        }}
       />
     </View>
   );
